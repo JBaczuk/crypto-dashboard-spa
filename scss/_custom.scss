@@ -1,1 +1,35 @@
 // Here you can add other styles
+
+$text-muted:        $gray-500;
+
+/* Cards */
+.card-body {
+    background: $gray-800
+}
+.card-title {
+    color: $white
+}
+.card-footer {
+    background: $gray-800
+}
+
+.main {
+    background: $gray-800
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background: $gray-800
+}
+.breadcrumb-item {
+    color: $white
+}
+
+/* Sidebar */
+.sidebar-nav {
+    background: $gray-700
+}
+
+.sidebar-minimizer .sidebar {
+    background: $gray-800
+}
