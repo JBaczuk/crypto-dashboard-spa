@@ -37,13 +37,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/dashboard',
+      redirect: '/overview',
       name: 'Home',
       component: Full,
       children: [
         {
-          path: 'dashboard',
-          name: 'Dashboard',
+          path: 'overview',
+          name: 'overview',
           component: Dashboard
         },
         {

@@ -3,7 +3,7 @@
 
 $enable-sidebar-nav-rounded:          false !default;
 
-$border-color:                        $gray-200 !default;
+$border-color:                        $gray-600;//$gray-200 !default;
 $layout-transition-speed:             .25s !default;
 
 // Social Colors
@@ -64,9 +64,9 @@ $navbar-brand-minimized-logo:         url('../img/logo-symbol.png') !default;
 $navbar-brand-minimized-logo-size:    24px !default;
 $navbar-brand-minimized-border:       $navbar-brand-border !default;
 
-$navbar-color:                        $gray-600 !default;
-$navbar-hover-color:                  $gray-800 !default;
-$navbar-active-color:                 $gray-800 !default;
+$navbar-color:                        $gray-400;//$gray-600 !default;
+$navbar-hover-color:                  $white !default;
+$navbar-active-color:                 $white !default;
 $navbar-disabled-color:               $gray-300 !default;
 
 $navbar-toggler-icon:                 str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-color}' stroke-width='2.25' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23") !default;
@@ -80,7 +80,7 @@ $sidebar-minimized-width:             50px !default;
 $sidebar-minimized-height:            $sidebar-minimized-width !default;
 $sidebar-compact-width:               150px !default;
 $sidebar-compact-height:              $sidebar-compact-width !default;
-$sidebar-color:                       #fff !default;
+$sidebar-color:                       $gray-400;//#fff !default;
 $sidebar-bg:                          $gray-800 !default;
 $sidebar-borders:                     none !default;
 $mobile-sidebar-width:                220px !default;
@@ -101,13 +101,13 @@ $sidebar-form-placeholder-color:      rgba(255,255,255,.7) !default;
 
 // Sidebar Navigation
 
-$sidebar-nav-color:                   #fff !default;
+$sidebar-nav-color:                   $gray-400;//#fff !default;
 $sidebar-nav-title-padding-y:         .75rem !default;
 $sidebar-nav-title-padding-x:         1rem !default;
 $sidebar-nav-title-color:             $gray-200 !default;
 $sidebar-nav-link-padding-y:          .75rem !default;
 $sidebar-nav-link-padding-x:          1rem !default;
-$sidebar-nav-link-color:              #fff !default;
+$sidebar-nav-link-color:              $gray-200;//#fff !default;
 $sidebar-nav-link-bg:                 transparent !default;
 $sidebar-nav-link-icon-color:         $gray-600 !default;
 $sidebar-nav-link-borders:            0 !default;
@@ -187,8 +187,8 @@ $breadcrumb-borders: (
 // Aside
 
 $aside-menu-width:                    250px !default;
-$aside-menu-color:                    $gray-800 !default;
-$aside-menu-bg:                       #fff !default;
+$aside-menu-color:                    $gray-200 !default;
+$aside-menu-bg:                       $gray-800;//#fff !default;
 $aside-menu-borders: (
   left: (
     size:                             1px,

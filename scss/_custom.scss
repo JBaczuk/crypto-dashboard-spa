@@ -2,13 +2,6 @@
 
 $text-muted:        $gray-500;
 
-/* Brand Colors */
-$brandBlue:           #20a8d8;
-$brandLtBlue:         #63c2de;
-$brandYellow:         #ffbf46;
-$brandRed:            #fa6b6e;
-$brandGreen:          #49bc7d;
-
 /* Cards */
 .card {
     border: none
@@ -27,12 +20,22 @@ $brandGreen:          #49bc7d;
     background: #1D262B
 }
 
+body {
+    color: $gray-200
+}
+
+/* Header */
+.app-header .navbar {
+    border-bottom: 1px solid $gray-500
+}
+
 /* Breadcrumb */
 .breadcrumb {
-    background: $gray-800
+    background: $gray-800;
+    border-bottom: none
 }
 .breadcrumb-item {
-    color: $white
+    color: $gray-400;
 }
 
 /* Sidebar */

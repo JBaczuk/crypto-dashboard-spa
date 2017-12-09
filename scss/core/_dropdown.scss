@@ -3,6 +3,8 @@
   position: relative;
   padding: 10px 20px;
   border-bottom: 1px solid $dropdown-border-color;
+  background: $gray-800;
+  color: $gray-200;
 
   &:last-child {
     border-bottom: 0;
@@ -29,7 +31,7 @@
   padding: 8px 20px;
   background: $dropdown-divider-bg;
   border-bottom: 1px solid $dropdown-border-color;
-
+  color: $gray-200;
   .btn {
     margin-top: -7px;
     color: $dropdown-header-color;

@@ -1,19 +1,19 @@
 <script>
 import { Line } from 'vue-chartjs'
 
-const brandInfo = '#63c2de'
+const brandPrimary = '#20a8d8'
 const datasets = [
   {
     label: 'My First dataset',
-    backgroundColor: brandInfo,
+    backgroundColor: brandPrimary,
     borderColor: 'rgba(255,255,255,.55)',
-    data: [1, 18, 9, 17, 34, 22, 11]
+    data: [65, 59, 84, 84, 51, 55, 40]
   }
 ]
 
 export default {
   extends: Line,
-  props: ['height'],
+  props: ['height', 'backgroundColor'],
   mounted () {
     this.renderChart({
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -33,7 +33,6 @@ export default {
             fontSize: 2,
             fontColor: 'transparent'
           }
-
         }],
         yAxes: [{
           display: false,
@@ -46,7 +45,6 @@ export default {
       },
       elements: {
         line: {
-          tension: 0.00001,
           borderWidth: 1
         },
         point: {

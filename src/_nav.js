@@ -1,17 +1,8 @@
 export default {
   items: [
     {
-      name: 'Dashboard',
-      url: '/dashboard',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'primary',
-        text: 'NEW'
-      }
-    },
-    {
       title: true,
-      name: 'UI elements',
+      name: 'Portfolio',
       class: '',
       wrapper: {
         element: '',
@@ -19,128 +10,149 @@ export default {
       }
     },
     {
-      name: 'Components',
-      url: '/components',
-      icon: 'icon-puzzle',
-      children: [
-        {
-          name: 'Buttons',
-          url: '/components/buttons',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Social Buttons',
-          url: '/components/social-buttons',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Cards',
-          url: '/components/cards',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Forms',
-          url: '/components/forms',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Modals',
-          url: '/components/modals',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Switches',
-          url: '/components/switches',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Tables',
-          url: '/components/tables',
-          icon: 'icon-puzzle'
-        }
-      ]
-    },
-    {
-      name: 'Icons',
-      url: '/icons',
-      icon: 'icon-star',
-      children: [
-        {
-          name: 'Font Awesome',
-          url: '/icons/font-awesome',
-          icon: 'icon-star',
-          badge: {
-            variant: 'secondary',
-            text: '4.7'
-          }
-        },
-        {
-          name: 'Simple Line Icons',
-          url: '/icons/simple-line-icons',
-          icon: 'icon-star'
-        }
-      ]
-    },
-    {
-      name: 'Widgets',
-      url: '/widgets',
-      icon: 'icon-calculator',
+      name: 'Overview',
+      url: '/overview',
+      icon: 'icon-speedometer',
       badge: {
-        variant: 'primary',
-        text: 'NEW'
+        variant: 'primary'
       }
     },
     {
-      name: 'Charts',
-      url: '/charts',
-      icon: 'icon-pie-chart'
-    },
-    {
-      divider: true
-    },
-    {
-      title: true,
-      name: 'Extras'
-    },
-    {
-      name: 'Pages',
-      url: '/pages',
-      icon: 'icon-star',
+      name: 'Exchanges',
+      url: '/exchanges',
+      icon: 'icon-arrow-right-circle',
       children: [
         {
-          name: 'Login',
-          url: '/pages/login',
-          icon: 'icon-star'
+          name: 'Coinbase',
+          url: '/exchanges/coinbase',
+          icon: 'icon-arrow-right-circle',
+          badge: {
+            variant: 'primary',
+            text: 'FUTURE'
+          }
         },
         {
-          name: 'Register',
-          url: '/pages/register',
-          icon: 'icon-star'
+          name: 'GDAX',
+          url: '/exchanges/gdax',
+          icon: 'icon-arrow-right-circle',
+          badge: {
+            variant: 'primary',
+            text: 'FUTURE'
+          }
         },
         {
-          name: 'Error 404',
-          url: '/pages/404',
-          icon: 'icon-star'
+          name: 'Poloniex',
+          url: '/exchanges/poloniex',
+          icon: 'icon-arrow-right-circle',
+          badge: {
+            variant: 'primary',
+            text: 'FUTURE'
+          }
         },
         {
-          name: 'Error 500',
-          url: '/pages/500',
-          icon: 'icon-star'
+          name: 'Bittrex',
+          url: '/exchanges/bittrex',
+          icon: 'icon-arrow-right-circle',
+          badge: {
+            variant: 'primary',
+            text: 'FUTURE'
+          }
         }
       ]
     },
     {
-      name: 'Download CoreUI',
-      url: 'http://coreui.io/vue/',
-      icon: 'icon-cloud-download',
-      class: 'mt-auto',
-      variant: 'success'
+      title: true,
+      name: 'Tools',
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
     },
     {
-      name: 'Try CoreUI PRO',
-      url: 'http://coreui.io/pro/vue/',
-      icon: 'icon-layers',
-      variant: 'danger'
+      name: 'Market',
+      url: '/market',
+      icon: 'icon-credit-card',
+      children: [
+        {
+          name: 'Charts',
+          url: '/icons/simple-line-icons',
+          icon: 'icon-chart',
+          badge: {
+            variant: 'primary',
+            text: 'FUTURE'
+          }
+        },
+        {
+          name: 'Market Cap',
+          url: '/icons/simple-line-icons',
+          icon: 'icon-flag',
+          badge: {
+            variant: 'primary',
+            text: 'FUTURE'
+          }
+        }
+      ]
+    },
+    {
+      name: 'Bots',
+      url: '/bots',
+      icon: 'icon-eye',
+      children: [
+        {
+          name: 'Arbitrage',
+          url: '/icons/simple-line-icons',
+          icon: 'icon-fire',
+          badge: {
+            variant: 'primary',
+            text: 'FUTURE'
+          }
+        },
+        {
+          name: 'Market Mkr',
+          url: '/icons/simple-line-icons',
+          icon: 'icon-flag',
+          badge: {
+            variant: 'primary',
+            text: 'FUTURE'
+          }
+        }
+      ]
+    },
+    {
+      name: 'Alerts',
+      url: '/alerts',
+      icon: 'icon-hourglass',
+      badge: {
+        variant: 'primary',
+        text: 'FUTURE'
+      }
+    },
+    {
+      name: 'Trading',
+      url: '/trading',
+      icon: 'icon-directions',
+      badge: {
+        variant: 'primary',
+        text: 'FUTURE'
+      }
+    },
+    {
+      name: 'Contribute',
+      url: 'https://github.com/JBaczuk/crypto-dashboard',
+      icon: 'icon-social-github',
+      class: 'mt-auto',
+      variant: 'primary'
+    },
+    {
+      name: 'Try Crypto Dashboard PRO',
+      url: 'https://github.com/JBaczuk/crypto-dashboard',
+      icon: 'icon-eyeglass',
+      variant: 'success',
+      badge: {
+        variant: 'primary',
+        text: 'FUTURE'
+      }
     }
   ]
 }
