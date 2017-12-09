@@ -2,7 +2,17 @@
 
 $text-muted:        $gray-500;
 
+/* Brand Colors */
+$brandBlue:           #20a8d8;
+$brandLtBlue:         #63c2de;
+$brandYellow:         #ffbf46;
+$brandRed:            #fa6b6e;
+$brandGreen:          #49bc7d;
+
 /* Cards */
+.card {
+    border: none
+}
 .card-body {
     background: $gray-800
 }
@@ -14,7 +24,7 @@ $text-muted:        $gray-500;
 }
 
 .main {
-    background: $gray-800
+    background: #1D262B
 }
 
 /* Breadcrumb */
@@ -27,7 +37,7 @@ $text-muted:        $gray-500;
 
 /* Sidebar */
 .sidebar-nav {
-    background: $gray-700
+    background: $gray-800
 }
 
 .sidebar-minimizer .sidebar {

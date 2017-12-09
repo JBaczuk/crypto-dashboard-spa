@@ -2,9 +2,9 @@
 import { Line } from 'vue-chartjs'
 
 // const brandPrimary = '#20a8d8'
-const brandSuccess = '#4dbd74'
-const brandInfo = '#63c2de'
-const brandDanger = '#f86c6b'
+const brandBlue = '#20a8d8'
+const brandYellow = '#ffbf46'
+const brandRed = '#fa6b6e'
 
 function convertHex (hex, opacity) {
   hex = hex.replace('#', '')
@@ -39,8 +39,8 @@ export default {
       datasets: [
         {
           label: 'My First dataset',
-          backgroundColor: convertHex(brandInfo, 10),
-          borderColor: brandInfo,
+          backgroundColor: convertHex(brandBlue, 20),
+          borderColor: brandBlue,
           pointHoverBackgroundColor: '#fff',
           borderWidth: 2,
           data: data1
@@ -48,7 +48,7 @@ export default {
         {
           label: 'My Second dataset',
           backgroundColor: 'transparent',
-          borderColor: brandSuccess,
+          borderColor: brandYellow,
           pointHoverBackgroundColor: '#fff',
           borderWidth: 2,
           data: data2
@@ -56,7 +56,7 @@ export default {
         {
           label: 'My Third dataset',
           backgroundColor: 'transparent',
-          borderColor: brandDanger,
+          borderColor: brandRed,
           pointHoverBackgroundColor: '#fff',
           borderWidth: 1,
           borderDash: [8, 5],
