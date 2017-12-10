@@ -4,7 +4,11 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import App from './App'
 import router from './router'
+import Chartkick from 'chartkick'
+import VueChartkick from 'vue-chartkick'
+import Chart from 'chart.js' // eslint-disable-line no-unused-vars
 
+Vue.use(VueChartkick, { Chartkick })
 Vue.use(BootstrapVue)
 
 /* eslint-disable no-new */

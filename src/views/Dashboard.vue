@@ -11,8 +11,8 @@
               </template>
               <b-dropdown-item disabled>Explore {{ exchange.name }} (future)</b-dropdown-item>
             </b-dropdown>
-            <h4 class="mb-0">9.823</h4>
-            <p>{{ exchange.name }}</p>
+            <h4 class="mb-0">{{ exchange.balance }}</h4>
+            <p>${{ exchange.name }}</p>
           </b-card-body>
           <exchange-preview class="chart-wrapper px-3" style="height:70px;" height="70"/>
         </b-card>
@@ -55,7 +55,7 @@
     <b-card-group columns class="card-columns cols-2">
       <b-card header="Coin Portfolio" class="bg-dark text-white">
         <div class="chart-wrapper">
-          <doughnut-example/>
+            <pie-chart :data="pie_chart_data" :donut="true"></pie-chart>
         </div>
       </b-card>
     </b-card-group>  
@@ -65,7 +65,6 @@
 <script>
 import ExchangePreview from './dashboard/ExchangePreview'
 import PortfolioChart from './dashboard/PortfolioChart'
-import DoughnutExample from './charts/DoughnutExample'
 import { Callout } from '../components/'
 
 export default {
@@ -73,44 +72,101 @@ export default {
   components: {
     Callout,
     ExchangePreview,
-    PortfolioChart,
-    DoughnutExample
+    PortfolioChart
   },
   data: function () {
     return {
-      exchanges: [
-        {
-          name: 'Poloniex',
-          bg: 'bg-primary'
-        },
-        {
-          name: 'GDAX',
-          bg: 'bg-info'
-        },
-        {
-          name: 'Coinbase',
-          bg: 'bg-warning'
-        },
-        {
-          name: 'Bittrex',
-          bg: 'bg-danger'
-        }
-      ]
+      exchanges: [],
+      balances: null,
+      portfolio_investment: 100.00, // TODO: get this from the user
+      portfolio_value: 0.0,
+      portfolio_return: 0.0,
+      portfolio_return_pct: 0.0,
+      pie_chart_data: [],
+      apiKeyErrorModal: false
     }
   },
+  created () {
+    this.getBalances()
+  },
   methods: {
-    variant (value) {
-      let $variant
-      if (value <= 25) {
-        $variant = 'info'
-      } else if (value > 25 && value <= 50) {
-        $variant = 'success'
-      } else if (value > 50 && value <= 75) {
-        $variant = 'warning'
-      } else if (value > 75 && value <= 100) {
-        $variant = 'danger'
+    getBalances () {
+      var ctx = this
+      fetch('http://localhost:8000/api/balances/')
+        .then(
+          function (response) {
+            if (response.status !== 200) {
+              console.log('Error: ' + response.status)
+              if (response.status === 401) {
+                ctx.apiKeyErrorModal = true
+              }
+              return
+            }
+            response.json().then(function (data) {
+              data.forEach(function (exchange) {
+                var exchangeBalance = 0
+                exchange[Object.keys(exchange)[0]].forEach(function (coin) {
+                  exchangeBalance = exchangeBalance + coin[Object.keys(coin)[0]].usd_value
+                })
+                ctx.exchanges.push({
+                  name: Object.keys(exchange)[0],
+                  balance: exchangeBalance.toFixed(2)
+                })
+              })
+              ctx.balances = data
+              ctx.calcPortfolioValue()
+              ctx.createPieChart()
+            })
+          }
+        )
+        .catch(function (err) {
+          console.log('Fetch Error :-S', err)
+        })
+    },
+    calcPortfolioValue () {
+      var totalValue = 0
+      for (var item in this.balances) {
+        for (var exchange in this.balances[item]) {
+          if (this.balances[item].hasOwnProperty(exchange)) {
+            for (var coin in this.balances[item][exchange]) {
+              var coinName = Object.keys(this.balances[item][exchange][coin])[0]
+              var coinValue = this.balances[item][exchange][coin][coinName]['usd_value']
+              totalValue = totalValue + coinValue
+            }
+          }
+        }
       }
-      return $variant
+      this.portfolio_value = totalValue.toFixed(2)
+    },
+    calcPortfolioReturn () {
+      this.portfolio_return = (this.portfolio_value - this.portfolio_investment).toFixed(2)
+      this.portfolio_return_pct = ((this.portfolio_return / this.portfolio_investment) * 100.0).toFixed(2)
+    },
+    createPieChart () {
+      var pieChartDataArray = []
+      for (var item in this.balances) {
+        for (var exchange in this.balances[item]) {
+          if (this.balances[item].hasOwnProperty(exchange)) {
+            for (var coin in this.balances[item][exchange]) {
+              var coinName = Object.keys(this.balances[item][exchange][coin])[0]
+              var coinValue = this.balances[item][exchange][coin][coinName]['usd_value']
+              var existingCoin = false
+              pieChartDataArray.forEach(function (entry) {
+                if (entry[0] === coinName) {
+                  entry[1] = entry[1] + coinValue
+                  existingCoin = true
+                }
+              })
+              if (!existingCoin) {
+                var coinPieSlice = [coinName, coinValue]
+                pieChartDataArray.push(coinPieSlice)
+                existingCoin = false
+              }
+            }
+          }
+        }
+      }
+      this.pie_chart_data = pieChartDataArray
     }
   }
 }
