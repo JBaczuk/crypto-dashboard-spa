@@ -9,7 +9,7 @@
           <router-view></router-view>
         </div>
       </main>
-      <AppAside/>
+      <!-- <AppAside/> -->
     </div>
     <AppFooter/>
   </div>

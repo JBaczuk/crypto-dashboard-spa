@@ -24,7 +24,7 @@ export default {
       children: [
         {
           name: 'Coinbase',
-          url: '/exchanges/coinbase',
+          // url: '/exchanges/coinbase',
           icon: 'icon-arrow-right-circle',
           badge: {
             variant: 'primary',
@@ -33,7 +33,7 @@ export default {
         },
         {
           name: 'GDAX',
-          url: '/exchanges/gdax',
+          // url: '/exchanges/gdax',
           icon: 'icon-arrow-right-circle',
           badge: {
             variant: 'primary',
@@ -42,7 +42,7 @@ export default {
         },
         {
           name: 'Poloniex',
-          url: '/exchanges/poloniex',
+          // url: '/exchanges/poloniex',
           icon: 'icon-arrow-right-circle',
           badge: {
             variant: 'primary',
@@ -51,7 +51,7 @@ export default {
         },
         {
           name: 'Bittrex',
-          url: '/exchanges/bittrex',
+          // url: '/exchanges/bittrex',
           icon: 'icon-arrow-right-circle',
           badge: {
             variant: 'primary',
@@ -59,6 +59,9 @@ export default {
           }
         }
       ]
+    },
+    {
+      divider: true
     },
     {
       title: true,
@@ -76,7 +79,7 @@ export default {
       children: [
         {
           name: 'Charts',
-          url: '/icons/simple-line-icons',
+          // url: '/marketcharts',
           icon: 'icon-chart',
           badge: {
             variant: 'primary',
@@ -85,7 +88,7 @@ export default {
         },
         {
           name: 'Market Cap',
-          url: '/icons/simple-line-icons',
+          // url: '/marketcap',
           icon: 'icon-flag',
           badge: {
             variant: 'primary',
@@ -101,7 +104,7 @@ export default {
       children: [
         {
           name: 'Arbitrage',
-          url: '/icons/simple-line-icons',
+          // url: '/bots-arbitrage',
           icon: 'icon-fire',
           badge: {
             variant: 'primary',
@@ -110,7 +113,7 @@ export default {
         },
         {
           name: 'Market Mkr',
-          url: '/icons/simple-line-icons',
+          // url: '/bots/market-maker',
           icon: 'icon-flag',
           badge: {
             variant: 'primary',
@@ -121,7 +124,7 @@ export default {
     },
     {
       name: 'Alerts',
-      url: '/alerts',
+      url: '/#', // url: '/alerts',
       icon: 'icon-hourglass',
       badge: {
         variant: 'primary',
@@ -130,7 +133,7 @@ export default {
     },
     {
       name: 'Trading',
-      url: '/trading',
+      url: '/#', // url: '/trading',
       icon: 'icon-directions',
       badge: {
         variant: 'primary',
