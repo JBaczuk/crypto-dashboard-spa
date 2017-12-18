@@ -1,8 +1,23 @@
 <template>
   <div class="animated fadeIn">
     <b-row>
+      <b-col sm="12" lg="12">
+          <b-card no-body class="bg-primary">
+          <b-card-body class="pb-0">
+            <!-- <b-dropdown class="float-right" variant="transparent p-0" right>
+              <template slot="button-content">
+                <i class="icon-settings"></i>
+              </template>
+              <b-dropdown-item disabled>Explore (future)</b-dropdown-item>
+            </b-dropdown> -->
+            <h4 class="mb-0">Portfolio Value: ${{ portfolio_value }} USD</h4>
+          </b-card-body>
+        </b-card>
+      </b-col>
+    </b-row>
+    <b-row>
       <b-col sm="6" lg="3" v-for="exchange in exchanges" v-bind:data="exchange" v-bind:key="exchange.name">
-        <!-- <b-card no-body :class="exchange.bg"> -->
+        <!-- TODO change background for each exchange account <b-card no-body :class="exchange.bg"> -->
           <b-card no-body class="bg-primary">
           <b-card-body class="pb-0">
             <b-dropdown class="float-right" variant="transparent p-0" right>
@@ -11,8 +26,8 @@
               </template>
               <b-dropdown-item disabled>Explore {{ exchange.name }} (future)</b-dropdown-item>
             </b-dropdown>
-            <h4 class="mb-0">{{ exchange.balance }}</h4>
-            <p>${{ exchange.name }}</p>
+            <h4 class="mb-0">${{ exchange.balance }}</h4>
+            <p>{{ exchange.name }}</p>
           </b-card-body>
           <exchange-preview class="chart-wrapper px-3" style="height:70px;" height="70"/>
         </b-card>
@@ -23,7 +38,7 @@
       <b-row>
         <b-col sm="5">
           <h4 class="card-title mb-0">Portfolio</h4>
-          <div class="small text-muted">$100.00</div>
+          <div class="">{{ portfolio_value }}</div>
         </b-col>
         <b-col sm="7" class="d-none d-md-block">
           <b-button type="button" variant="primary" class="float-right"><i class="icon-cloud-download"></i></b-button>
@@ -41,7 +56,7 @@
         <ul>
           <li>
             <div>Portfolio Return</div>
-            <strong class="text-muted">$100.00</strong>
+            <strong class="text-muted">{{ portfolio_return }} | {{ portfolio_return_pct }}%</strong>
             <b-progress height={} class="progress-xs mt-2" :precision="1" variant="warning" :value="100"></b-progress>
           </li>
           <li>
@@ -92,7 +107,7 @@ export default {
   methods: {
     getBalances () {
       var ctx = this
-      fetch('http://localhost:8000/api/balances/')
+      fetch('http://localhost:8000/api/portfolio/')
         .then(
           function (response) {
             if (response.status !== 200) {
@@ -103,7 +118,7 @@ export default {
               return
             }
             response.json().then(function (data) {
-              data.forEach(function (exchange) {
+              data.balances.forEach(function (exchange) {
                 var exchangeBalance = 0
                 exchange[Object.keys(exchange)[0]].forEach(function (coin) {
                   exchangeBalance = exchangeBalance + coin[Object.keys(coin)[0]].usd_value
@@ -113,8 +128,10 @@ export default {
                   balance: exchangeBalance.toFixed(2)
                 })
               })
-              ctx.balances = data
+              ctx.balances = data.balances
+              ctx.portfolio_investment = parseFloat(data.investment) + 7041.03 // Jordan's other coinbase acct that's closed
               ctx.calcPortfolioValue()
+              ctx.calcPortfolioReturn()
               ctx.createPieChart()
             })
           }
@@ -140,7 +157,7 @@ export default {
     },
     calcPortfolioReturn () {
       this.portfolio_return = (this.portfolio_value - this.portfolio_investment).toFixed(2)
-      this.portfolio_return_pct = ((this.portfolio_return / this.portfolio_investment) * 100.0).toFixed(2)
+      this.portfolio_return_pct = parseFloat(((this.portfolio_return / this.portfolio_investment) * 100.0).toFixed(2))
     },
     createPieChart () {
       var pieChartDataArray = []
