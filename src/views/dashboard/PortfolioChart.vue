@@ -61,7 +61,7 @@ export default {
       for (var returnObj in data) {
         if (data.hasOwnProperty(returnObj)) {
           console.log('returnObj: ' + returnObj)
-          returnArray.push(data[returnObj].return)
+          returnArray.push(data[returnObj].return * 100)
         }
       }
       return returnArray
@@ -108,8 +108,9 @@ export default {
             ticks: {
               beginAtZero: true,
               maxTicksLimit: 5,
-              stepSize: Math.ceil(250 / 5),
-              max: Math.max(Math.max.apply(null, ctx.historical_btc), Math.max.apply(null, ctx.portfolio_return))
+              stepSize: Math.ceil(Math.max(Math.max.apply(null, ctx.historical_btc), Math.max.apply(null, ctx.portfolio_return)) / 10),
+              max: Math.max(Math.max.apply(null, ctx.historical_btc), Math.max.apply(null, ctx.portfolio_return)),
+              min: Math.min(Math.min.apply(null, ctx.historical_btc), Math.min.apply(null, ctx.portfolio_return))
             },
             gridLines: {
               display: true

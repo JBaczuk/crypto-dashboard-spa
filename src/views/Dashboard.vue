@@ -10,7 +10,8 @@
               </template>
               <b-dropdown-item disabled>Explore (future)</b-dropdown-item>
             </b-dropdown> -->
-            <h4 class="mb-0">Portfolio Value: ${{ portfolio_value }} USD</h4>
+            <h4 class="mb-0">Portfolio Value: ${{ portfolio_value }}</h4>
+            <h5 class="mb-0 text-muted">Return: ${{ portfolio_return }} {{ portfolio_return_pct }}%</h5>
           </b-card-body>
         </b-card>
       </b-col>
@@ -73,7 +74,10 @@
             <pie-chart :data="pie_chart_data" :donut="true"></pie-chart>
         </div>
       </b-card>
-    </b-card-group>  
+    </b-card-group> 
+      <b-modal title="Error" v-model="apiKeyErrorModal" @ok="apiKeyErrorModal = false">
+      There are no Exchange API keys set up, so there is no data to view.
+      </b-modal> 
   </div>
 </template>
 
@@ -93,7 +97,7 @@ export default {
     return {
       exchanges: [],
       balances: null,
-      portfolio_investment: 100.00, // TODO: get this from the user
+      portfolio_investment: 0.0,
       portfolio_value: 0.0,
       portfolio_return: 0.0,
       portfolio_return_pct: 0.0,
@@ -111,8 +115,9 @@ export default {
         .then(
           function (response) {
             if (response.status !== 200) {
-              console.log('Error: ' + response.status)
+              console.error('Error: ' + response.status)
               if (response.status === 401) {
+                console.error('No Exchange API keys on API server')
                 ctx.apiKeyErrorModal = true
               }
               return
