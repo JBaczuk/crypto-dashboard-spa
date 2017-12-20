@@ -13,6 +13,7 @@ import Bots from '@/views/Bots'
 import Alerts from '@/views/Alerts'
 import Trading from '@/views/Trading'
 import Settings from '@/views/Settings'
+import Exchanges from '@/views/Exchanges'
 
 Vue.use(Router)
 
@@ -34,11 +35,33 @@ export default new Router({
         }
       ]
     },
-    // {
-    //   path: '/exchanges',
-    //   name: 'Exchanges',
-    //   component: Exchanges
-    // },
+    {
+      path: '/exchanges',
+      name: 'Exchanges',
+      component: Full,
+      children: [
+        {
+          path: '/exchanges/coinbase',
+          name: 'Coinbase',
+          component: Exchanges
+        },
+        {
+          path: '/exchanges/gdax',
+          name: 'GDAX',
+          component: Exchanges
+        },
+        {
+          path: '/exchanges/poloniex',
+          name: 'Poloniex',
+          component: Exchanges
+        },
+        {
+          path: '/exchanges/bittrex',
+          name: 'Bittrex',
+          component: Exchanges
+        }
+      ]
+    },
     {
       path: '/marketcharts',
       name: 'MarketCharts',

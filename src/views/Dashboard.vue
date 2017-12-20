@@ -11,7 +11,8 @@
               <b-dropdown-item disabled>Explore (future)</b-dropdown-item>
             </b-dropdown> -->
             <h4 class="mb-0">Portfolio Value: ${{ portfolio_value }}</h4>
-            <h5 class="mb-0 text-muted">Return: ${{ portfolio_return }} {{ portfolio_return_pct }}%</h5>
+            <h5 class="mb-0">Return: ${{ portfolio_return }} {{ portfolio_return_pct }}%</h5>
+            <br>
           </b-card-body>
         </b-card>
       </b-col>
@@ -25,7 +26,12 @@
               <template slot="button-content">
                 <i class="icon-settings"></i>
               </template>
-              <b-dropdown-item disabled>Explore {{ exchange.name }} (future)</b-dropdown-item>
+              <b-dropdown-item>
+                <router-link :to="'/exchanges/' + exchange.name.toLowerCase()" :class="classList">
+                  <i :class="icon"></i> {{exchange.name}}
+                  <!-- <b-badge v-if="badge && badge.text" :variant="badge.variant">{{badge.text}}</b-badge> -->
+                </router-link>
+              </b-dropdown-item>
             </b-dropdown>
             <h4 class="mb-0">${{ exchange.balance }}</h4>
             <p>{{ exchange.name }}</p>

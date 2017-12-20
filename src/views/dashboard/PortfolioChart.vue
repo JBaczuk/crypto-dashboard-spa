@@ -60,7 +60,6 @@ export default {
       var returnArray = []
       for (var returnObj in data) {
         if (data.hasOwnProperty(returnObj)) {
-          console.log('returnObj: ' + returnObj)
           returnArray.push(data[returnObj].return * 100)
         }
       }
@@ -68,8 +67,6 @@ export default {
     },
     initChart () {
       var ctx = this
-      console.log(ctx.historical_btc)
-      console.log(ctx.portfolio_return)
       for (var i = 0; i <= ctx.historical_btc.length; i++) {
         ctx.portfolio_return.push(random(0, 1))
       }
