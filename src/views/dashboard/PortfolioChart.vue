@@ -24,48 +24,69 @@ export default {
   props: ['height'],
   data: function () {
     return {
-      historical_btc: [],
-      portfolio_return: [],
-      dates: []
+      historical_btc: [
+        '0',
+        '.3',
+        '.5',
+        '5',
+        '6',
+        '3'
+      ],
+      portfolio_return: [
+        '0',
+        '.1',
+        '.4',
+        '6',
+        '7',
+        '5'
+      ],
+      dates: [
+        'Dec 16',
+        'Dec 17',
+        'Dec 18',
+        'Dec 19',
+        'Dec 20',
+        'Dec 21'
+      ]
     }
   },
   methods: {
-    getHistoricalBitcoin () {
-      var ctx = this
-      fetch('http://localhost:8000/api/historical_btc_return/')
-        .then(
-          function (response) {
-            if (response.status !== 200) {
-              console.log('Error: ' + response.status)
-              return
-            }
-            response.json().then(function (data) {
-              console.log(data)
-              ctx.historical_btc = ctx.createReturnArray(data)
-              ctx.dates = ctx.createDateArray(data)
-              ctx.initChart()
-            })
-          })
-    },
-    createDateArray (data) {
-      var dateArray = []
-      for (var returnObj in data) {
-        if (data.hasOwnProperty(returnObj)) {
-          var dateObj = new Date(parseInt(data[returnObj].datetime) * 1000)
-          dateArray.push(dateObj.getDate())
-        }
-      }
-      return dateArray
-    },
-    createReturnArray (data) {
-      var returnArray = []
-      for (var returnObj in data) {
-        if (data.hasOwnProperty(returnObj)) {
-          returnArray.push(data[returnObj].return * 100)
-        }
-      }
-      return returnArray
-    },
+    // getHistoricalBitcoin () {
+    //   var ctx = this
+    //   fetch('http://localhost:8000/api/historical_btc_return/')
+    //     .then(
+    //       function (response) {
+    //         if (response.status !== 200) {
+    //           console.log('Error: ' + response.status)
+    //           return
+    //         }
+    //         response.json().then(function (data) {
+    //           console.log(data)
+    //           ctx.historical_btc = ctx.createReturnArray(data)
+    //           ctx.dates = ctx.createDateArray(data)
+    //           ctx.initChart()
+    //         })
+    //       })
+    // },
+    // createDateArray (data) {
+    //   var dateArray = []
+    //   for (var returnObj in data) {
+    //     if (data.hasOwnProperty(returnObj)) {
+    //       var dateObj = new Date(parseInt(data[returnObj].datetime) * 1000)
+    //       dateArray.push(dateObj.getDate())
+    //     }
+    //   }
+    //   return dateArray
+    // },
+    // createReturnArray (data) {
+    //   var returnArray = []
+    //   for (var returnObj in data) {
+    //     if (data.hasOwnProperty(returnObj)) {
+    //       returnArray.push(data[returnObj].return * 100)
+    //     }
+    //   }
+    //   return returnArray
+    // },
     initChart () {
       var ctx = this
       for (var i = 0; i <= ctx.historical_btc.length; i++) {
@@ -76,16 +97,16 @@ export default {
         datasets: [
           {
             label: 'Bitcoin Historical Return',
-            backgroundColor: convertHex(brandBlue, 20),
-            borderColor: brandBlue,
+            backgroundColor: 'transparent',
+            borderColor: brandYellow,
             pointHoverBackgroundColor: '#fff',
             borderWidth: 2,
             data: ctx.historical_btc
           },
           {
             label: 'Portfolio Historical Return',
-            backgroundColor: 'transparent',
-            borderColor: brandYellow,
+            backgroundColor: convertHex(brandBlue, 20),
+            borderColor: brandBlue,
             pointHoverBackgroundColor: '#fff',
             borderWidth: 2,
             data: ctx.portfolio_return
@@ -127,7 +148,7 @@ export default {
     }
   },
   mounted () {
-    this.getHistoricalBitcoin()
+    this.initChart()
   }
 }
 </script>

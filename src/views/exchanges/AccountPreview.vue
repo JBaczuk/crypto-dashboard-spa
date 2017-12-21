@@ -1,85 +1,54 @@
 <script>
 import { Line } from 'vue-chartjs'
 
-const brandPrimary = '#20a8d8'
-const datasets = [
-  {
-    label: 'My First dataset',
-    backgroundColor: brandPrimary,
-    borderColor: 'rgba(255,255,255,.55)',
-    data: [65, 59, 84, 84, 51, 55, 40]
-  }
-]
-
 export default {
   extends: Line,
-  props: ['height', 'backgroundColor', 'accounts'],
-  mounted () {
-    this.renderChart({
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: datasets
-    }, {
-      maintainAspectRatio: false,
-      legend: {
-        display: false
-      },
-      scales: {
-        xAxes: [{
-          gridLines: {
-            color: 'transparent',
-            zeroLineColor: 'transparent'
-          },
-          ticks: {
-            fontSize: 2,
-            fontColor: 'transparent'
-          }
-        }],
-        yAxes: [{
-          display: false,
-          ticks: {
-            display: false,
-            min: Math.min.apply(Math, datasets[0].data) - 5,
-            max: Math.max.apply(Math, datasets[0].data) + 5
-          }
-        }]
-      },
-      elements: {
-        line: {
-          borderWidth: 1
-        },
-        point: {
-          radius: 4,
-          hitRadius: 10,
-          hoverRadius: 4
-        }
-      }
-    })
-  },
-  created () {
-    getProductHistoricRates()
-  },
+  props: ['height', 'datasets'],
   methods: {
-    getProductHistoricRates() {
-      accounts.forEach(function (account) {
-        console.log(JSON.stringify(account))
+    createChart () {
+      this.renderChart({
+        labels: ['Dec 15', 'Dec 16', 'Dec 17', 'Dec 18', 'Dec 19', 'Dec 20', 'Dec 21'],
+        datasets: this.datasets
+      }, {
+        maintainAspectRatio: false,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            gridLines: {
+              color: 'transparent',
+              zeroLineColor: 'transparent'
+            },
+            ticks: {
+              fontSize: 2,
+              fontColor: 'transparent'
+            }
+          }],
+          yAxes: [{
+            display: false,
+            ticks: {
+              display: false,
+              min: Math.min.apply(Math, this.datasets[0].data) - 5,
+              max: Math.max.apply(Math, this.datasets[0].data) + 5
+            }
+          }]
+        },
+        elements: {
+          line: {
+            borderWidth: 1
+          },
+          point: {
+            radius: 4,
+            hitRadius: 10,
+            hoverRadius: 4
+          }
+        }
       })
-      // const publicClient = new Gdax.PublicClient(product); // Defaults to BTC-USD as product
-      //   try {
-      //       var historicRates = await publicClient.getProductHistoricRates({ 'granularity': period_seconds, 'start': start })
-      //       console.log('historicRates: ' + JSON.stringify(historicRates))
-      //   }
-      //   catch (err) {
-      //       console.error(err)
-      //   }
-      //   for (var rate in historicRates) {
-      //       if (historicRates.hasOwnProperty(rate)) {
-      //           var rate_obj = {}
-      //           rate_obj.value = parseFloat(historicRates[rate][4])
-      //           rate_obj.datetime = historicRates[rate][0]
-      //           historicClosePrices.push(rate_obj)
-      //       }
-      //   }
     }
+  },
+  mounted () {
+    this.createChart()
   }
 }
 </script>

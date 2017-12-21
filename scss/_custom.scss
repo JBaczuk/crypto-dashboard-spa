@@ -46,3 +46,16 @@ body {
 .sidebar-minimizer .sidebar {
     background: $gray-800
 }
+
+/* Other */
+.dropdown-item .dropdown-item:focus {
+    background-color: $gray-800
+}
+
+.dropdown-menu {
+    background-color: $gray-800
+}
+
+.dropdown-item:hover {
+    background-color: $gray-600
+}

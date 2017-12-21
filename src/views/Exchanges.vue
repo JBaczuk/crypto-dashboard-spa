@@ -3,7 +3,7 @@
     <b-row>
       <b-col sm="6" lg="3" v-for="account in accounts" v-bind:data="account" v-bind:key="account.name">
         <!-- <b-card no-body :class="account.bg"> -->
-          <b-card no-body class="bg-primary">
+          <b-card no-body :style="{ backgroundColor: account.color }">
           <b-card-body class="pb-0">
             <b-dropdown class="float-right" variant="transparent p-0" right>
               <template slot="button-content">
@@ -11,71 +11,92 @@
               </template>
               <b-dropdown-item disabled>Explore {{ account.name }} (future)</b-dropdown-item>
             </b-dropdown>
-            <h4 class="mb-0">{{ Object.keys(account)[0] }}</h4>
-            <h5 class="mb-0">{{ account[Object.keys(account)[0]].amount.toFixed(2) }}</h5>
-            <h5 class="mb-0">${{ account[Object.keys(account)[0]].usd_value.toFixed(2) }}</h5>
+            <h4 class="mb-0">{{ account.name }}</h4>
+            <h5 class="mb-0">{{ account.amount.toFixed(2) }}</h5>
+            <h5 class="mb-0">${{ account.usd_value.toFixed(2) }}</h5>
             <p>{{ account.name }}</p>
           </b-card-body>
-          <account-preview class="chart-wrapper px-3" style="height:70px;" height="70" accounts="accounts"/>
+          <account-preview class="chart-wrapper px-3" style="height:70px;" height="70" :datasets="account.datasets"/>
         </b-card>
       </b-col>
     </b-row>
+
+    <b-card-group columns class="card-columns cols-2">
+      <b-card header="Coin Portfolio" class="bg-dark text-white">
+        <div class="chart-wrapper">
+            <pie-chart :data="pie_chart_data" :donut="true"></pie-chart>
+        </div>
+      </b-card>
+    </b-card-group> 
+
   </div>
 </template>
 
 <script>
 import AccountPreview from './exchanges/AccountPreview'
-import PortfolioChart from './dashboard/PortfolioChart'
-import DoughnutExample from './charts/DoughnutExample'
-import { Callout } from '../components/'
-import Gdax from 'gdax'
 
 export default {
   name: 'dashboard',
   components: {
-    Callout,
-    AccountPreview,
-    PortfolioChart,
-    DoughnutExample
+    AccountPreview
   },
   data: function () {
     return {
-      accounts: []
+      accounts: [
+        {
+          'name': 'BTC',
+          'amount': 0.75,
+          'usd_value': 1500.00,
+          'datasets': [
+            {
+              label: 'balance',
+              backgroundColor: '#20a8d8',
+              borderColor: 'rgba(255,255,255,.55)',
+              data: [1000.25, 1050.25, 1300.25, 1250.25, 1400.25, 1350.25, 1500.00]
+            }
+          ]
+        },
+
+        {
+          'name': 'LTC',
+          'amount': 1.15,
+          'usd_value': 500.00,
+          'datasets': [
+            {
+              label: 'balance',
+              backgroundColor: '#a4b7c1',
+              borderColor: 'rgba(255,255,255,.55)',
+              data: [1000.25, 1050.25, 1300.25, 1250.25, 1400.25, 1350.25, 1500.00]
+            }
+          ]
+        }
+      ],
+      pie_chart_data: [],
+      account_colors: ['#20a8d8', '#a4b7c1', '#4dbd74', '#63c2de', '#ffc107', '#f86c6b']
     }
   },
   created () {
-    var exchange = this.$route.path.split('/').slice(-1)[0]
-    this.getExchangeAccount(exchange)
+    this.createPieChart()
+    this.setAccountColors()
   },
   methods: {
-    getExchangeAccount (exchange) {
+    createPieChart () {
       var ctx = this
-      fetch('http://localhost:8000/api/portfolio/' + exchange)
-        .then(
-          function (response) {
-            if (response.status !== 200) {
-              console.error('Error: ' + response.status)
-              if (response.status === 401) {
-                console.error('No Exchange API keys on API server')
-                ctx.apiKeyErrorModal = true
-              }
-              return
-            }
-            response.json().then(function (data) {
-              console.log(Object.keys(data))
-              var balances = data['balance'][exchange.toUpperCase()]
-              for (var account in balances) {
-                if (balances.hasOwnProperty(account)) {
-                  console.log('account: ' + JSON.stringify(balances[account]))
-                  ctx.accounts.push(balances[account])
-                }
-              }
-            })
-          }
-        )
-        .catch(function (err) {
-          console.log('Fetch Error :-S', err)
-        })
+      this.accounts.forEach(function (account) {
+        var coinPieSlice = [account.name, account.usd_value]
+        ctx.pie_chart_data.push(coinPieSlice)
+      })
+    },
+    setAccountColors () {
+      var accountColorIdx = 0
+      this.accounts.forEach(function (account) {
+        account.color = this.account_colors[accountColorIdx]
+        if (accountColorIdx >= this.account_colors.length - 1) {
+          accountColorIdx = 0
+        } else {
+          accountColorIdx = accountColorIdx + 1
+        }
+      }.bind(this))
     }
   }
 }
