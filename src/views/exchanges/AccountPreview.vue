@@ -13,7 +13,7 @@ const datasets = [
 
 export default {
   extends: Line,
-  props: ['height', 'backgroundColor'],
+  props: ['height', 'backgroundColor', 'accounts'],
   mounted () {
     this.renderChart({
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -54,6 +54,32 @@ export default {
         }
       }
     })
+  },
+  created () {
+    getProductHistoricRates()
+  },
+  methods: {
+    getProductHistoricRates() {
+      accounts.forEach(function (account) {
+        console.log(JSON.stringify(account))
+      })
+      // const publicClient = new Gdax.PublicClient(product); // Defaults to BTC-USD as product
+      //   try {
+      //       var historicRates = await publicClient.getProductHistoricRates({ 'granularity': period_seconds, 'start': start })
+      //       console.log('historicRates: ' + JSON.stringify(historicRates))
+      //   }
+      //   catch (err) {
+      //       console.error(err)
+      //   }
+      //   for (var rate in historicRates) {
+      //       if (historicRates.hasOwnProperty(rate)) {
+      //           var rate_obj = {}
+      //           rate_obj.value = parseFloat(historicRates[rate][4])
+      //           rate_obj.datetime = historicRates[rate][0]
+      //           historicClosePrices.push(rate_obj)
+      //       }
+      //   }
+    }
   }
 }
 </script>

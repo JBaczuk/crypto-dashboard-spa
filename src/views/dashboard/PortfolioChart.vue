@@ -40,6 +40,7 @@ export default {
               return
             }
             response.json().then(function (data) {
+              console.log(data)
               ctx.historical_btc = ctx.createReturnArray(data)
               ctx.dates = ctx.createDateArray(data)
               ctx.initChart()

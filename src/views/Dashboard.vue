@@ -27,9 +27,8 @@
                 <i class="icon-settings"></i>
               </template>
               <b-dropdown-item>
-                <router-link :to="'/exchanges/' + exchange.name.toLowerCase()" :class="classList">
-                  <i :class="icon"></i> {{exchange.name}}
-                  <!-- <b-badge v-if="badge && badge.text" :variant="badge.variant">{{badge.text}}</b-badge> -->
+                <router-link :to="'/exchanges/' + exchange.name.toLowerCase()">
+                  Overview
                 </router-link>
               </b-dropdown-item>
             </b-dropdown>

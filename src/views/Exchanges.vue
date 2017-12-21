@@ -12,53 +12,14 @@
               <b-dropdown-item disabled>Explore {{ account.name }} (future)</b-dropdown-item>
             </b-dropdown>
             <h4 class="mb-0">{{ Object.keys(account)[0] }}</h4>
+            <h5 class="mb-0">{{ account[Object.keys(account)[0]].amount.toFixed(2) }}</h5>
+            <h5 class="mb-0">${{ account[Object.keys(account)[0]].usd_value.toFixed(2) }}</h5>
             <p>{{ account.name }}</p>
           </b-card-body>
-          <account-preview class="chart-wrapper px-3" style="height:70px;" height="70"/>
+          <account-preview class="chart-wrapper px-3" style="height:70px;" height="70" accounts="accounts"/>
         </b-card>
       </b-col>
     </b-row>
-
-    <!-- <b-card>
-      <b-row>
-        <b-col sm="5">
-          <h4 class="card-title mb-0">Portfolio</h4>
-          <div class="small text-muted">$100.00</div>
-        </b-col>
-        <b-col sm="7" class="d-none d-md-block">
-          <b-button type="button" variant="primary" class="float-right"><i class="icon-cloud-download"></i></b-button>
-          <b-button-toolbar class="float-right" aria-label="Toolbar with button groups">
-            <b-button-group class="mr-3" aria-label="First group">
-              <b-button variant="outline-secondary">5m</b-button>
-              <b-button variant="outline-secondary">1H</b-button>
-              <b-button variant="outline-secondary" :pressed="true">1D</b-button>
-            </b-button-group>
-          </b-button-toolbar>
-        </b-col>
-      </b-row>
-      <portfolio-chart class="chart-wrapper" style="height:300px;margin-top:40px;" height="300"></portfolio-chart>
-      <div slot="footer">
-        <ul>
-          <li>
-            <div>Portfolio Return</div>
-            <strong class="text-muted">$100.00</strong>
-            <b-progress height={} class="progress-xs mt-2" :precision="1" variant="warning" :value="100"></b-progress>
-          </li>
-          <li>
-            <div>Bitcoin Return</div>
-            <strong class="text-muted">25%</strong>
-            <b-progress height={} class="progress-xs mt-2" :precision="1" variant="primary" :value="100"></b-progress>
-          </li>
-        </ul>
-      </div>
-    </b-card> -->
-    <!-- <b-card-group columns class="card-columns cols-2">
-      <b-card header="Coin Portfolio" class="bg-dark text-white">
-        <div class="chart-wrapper">
-          <doughnut-example/>
-        </div>
-      </b-card>
-    </b-card-group>   -->
   </div>
 </template>
 
@@ -67,6 +28,7 @@ import AccountPreview from './exchanges/AccountPreview'
 import PortfolioChart from './dashboard/PortfolioChart'
 import DoughnutExample from './charts/DoughnutExample'
 import { Callout } from '../components/'
+import Gdax from 'gdax'
 
 export default {
   name: 'dashboard',
@@ -100,13 +62,12 @@ export default {
               return
             }
             response.json().then(function (data) {
-              console.log(data)
-              console.log(Object.keys(data)[0])
-              console.log(data[Object.keys(data)[0]])
-              var exchangeAccounts = data[Object.keys(data)[0]]
-              for (var account in exchangeAccounts) {
-                if (exchangeAccounts.hasOwnProperty(account)) {
-                  ctx.accounts.push(exchangeAccounts[account])
+              console.log(Object.keys(data))
+              var balances = data['balance'][exchange.toUpperCase()]
+              for (var account in balances) {
+                if (balances.hasOwnProperty(account)) {
+                  console.log('account: ' + JSON.stringify(balances[account]))
+                  ctx.accounts.push(balances[account])
                 }
               }
             })
