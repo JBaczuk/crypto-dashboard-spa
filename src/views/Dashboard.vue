@@ -5,7 +5,7 @@
           <b-card no-body class="bg-primary">
           <b-card-body class="pb-0">
             <h4 class="mb-0">Portfolio Value: ${{ portfolio_value }}</h4>
-            <h5 class="mb-0">Return: ${{ portfolio_return }} {{ portfolio_return_pct }}%</h5>
+            <!-- <h5 class="mb-0">Return: ${{ portfolio_return }} {{ portfolio_return_pct }}%</h5> -->
             <br>
           </b-card-body>
         </b-card>
@@ -77,6 +77,8 @@
 import ExchangePreview from './dashboard/ExchangePreview'
 import PortfolioChart from './dashboard/PortfolioChart'
 import { Callout } from '../components/'
+import Crypto from 'crypto-dashboard-node-sdk'
+import Gdax from 'crypto-dashboard-node-sdk/gdax'
 
 export default {
   name: 'dashboard',
@@ -87,56 +89,57 @@ export default {
   },
   data: function () {
     return {
-      exchanges: [
-        {
-          'name': 'GDAX',
-          'balance': 1000.00,
-          'datasets': [
-            {
-              label: 'balance',
-              backgroundColor: '#20a8d8',
-              borderColor: 'rgba(255,255,255,.55)',
-              data: [1000.25, 1050.25, 1300.25, 1250.25, 1400.25, 1350.25, 1500.25]
-            }
-          ]
-        },
-        {
-          'name': 'Coinbase',
-          'balance': 250.00,
-          'datasets': [
-            {
-              label: 'balance',
-              backgroundColor: '#a4b7c1',
-              borderColor: 'rgba(255,255,255,.55)',
-              data: [500.25, 1050.25, 0, 0, 1500.25, 1350.25, 250.25]
-            }
-          ]
-        },
-        {
-          'name': 'Poloniex',
-          'balance': 2500.00,
-          'datasets': [
-            {
-              label: 'balance',
-              backgroundColor: '#4dbd74',
-              borderColor: 'rgba(255,255,255,.55)',
-              data: [1000.25, 1050.25, 1300.25, 1250.25, 1400.25, 2350.25, 2500.25]
-            }
-          ]
-        },
-        {
-          'name': 'Bittrex',
-          'balance': 3500.00,
-          'datasets': [
-            {
-              label: 'balance',
-              backgroundColor: '#63c2de',
-              borderColor: 'rgba(255,255,255,.55)',
-              data: [1000.25, 1050.25, 1345.25, 1567.25, 2456.25, 2576.25, 3500.25]
-            }
-          ]
-        }
-      ],
+      exchanges: [],
+      // exchanges: [
+      //   {
+      //     'name': 'GDAX',
+      //     'balance': 1000.00,
+      //     'datasets': [
+      //       {
+      //         label: 'balance',
+      //         backgroundColor: '#20a8d8',
+      //         borderColor: 'rgba(255,255,255,.55)',
+      //         data: [1000.25, 1050.25, 1300.25, 1250.25, 1400.25, 1350.25, 1500.25]
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     'name': 'Coinbase',
+      //     'balance': 250.00,
+      //     'datasets': [
+      //       {
+      //         label: 'balance',
+      //         backgroundColor: '#a4b7c1',
+      //         borderColor: 'rgba(255,255,255,.55)',
+      //         data: [500.25, 1050.25, 0, 0, 1500.25, 1350.25, 250.25]
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     'name': 'Poloniex',
+      //     'balance': 2500.00,
+      //     'datasets': [
+      //       {
+      //         label: 'balance',
+      //         backgroundColor: '#4dbd74',
+      //         borderColor: 'rgba(255,255,255,.55)',
+      //         data: [1000.25, 1050.25, 1300.25, 1250.25, 1400.25, 2350.25, 2500.25]
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     'name': 'Bittrex',
+      //     'balance': 3500.00,
+      //     'datasets': [
+      //       {
+      //         label: 'balance',
+      //         backgroundColor: '#63c2de',
+      //         borderColor: 'rgba(255,255,255,.55)',
+      //         data: [1000.25, 1050.25, 1345.25, 1567.25, 2456.25, 2576.25, 3500.25]
+      //       }
+      //     ]
+      //   }
+      // ],
       balances: null,
       portfolio_investment: 0.0,
       portfolio_value: 10000.0,
@@ -156,8 +159,27 @@ export default {
   created () {
     // this.getBalances()
     this.setExchangeColors()
+    this.initializeCryptoSDK()
+    this.getExchangeAccounts()
   },
   methods: {
+    initializeCryptoSDK () {
+      var gdaxCreds = {
+        'key': '80e4857b6a5ec5b72a5a72cdfd519087',
+        'secret': 'Yl4RPCjeJUZFJlWPuone2RScTPogFEdNIjb18ACto4CABqEiEdxUS2kasn4jbz3Nsv9CZYq47A/jdsInwOe6Sg==',
+        'passphrase': 'gh6iwrjk9xm'
+      }
+      var exchangeAccounts = []
+      var gdax = new Gdax(gdaxCreds)
+      exchangeAccounts.push(gdax)
+      this.crypto = new Crypto(exchangeAccounts)
+    },
+    getExchangeAccounts () {
+      this.crypto.getExchangeAccounts()
+        .then(exchangeAccounts => {
+          this.exchanges = exchangeAccounts
+        })
+    },
     setExchangeColors () {
       var exchangeColorIdx = 0
       this.exchanges.forEach(function (exchange) {

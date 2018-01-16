@@ -41,5 +41,8 @@ module.exports = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ])
-  ]
+  ],
+  node: {
+    fs: 'empty'
+  }
 })
