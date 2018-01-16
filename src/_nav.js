@@ -17,49 +17,6 @@ export default {
         variant: 'primary'
       }
     },
-    // {
-    //   name: 'Exchanges',
-    //   url: '/exchanges',
-    //   icon: 'icon-arrow-right-circle',
-    //   children: [
-    //     {
-    //       name: 'Coinbase',
-    //       url: '/exchanges/coinbase',
-    //       icon: 'icon-arrow-right-circle',
-    //       badge: {
-    //         variant: 'primary',
-    //         text: 'FUTURE'
-    //       }
-    //     },
-    //     {
-    //       name: 'GDAX',
-    //       url: '/exchanges/gdax',
-    //       icon: 'icon-arrow-right-circle',
-    //       badge: {
-    //         variant: 'primary',
-    //         text: 'FUTURE'
-    //       }
-    //     },
-    //     {
-    //       name: 'Poloniex',
-    //       url: '/exchanges/poloniex',
-    //       icon: 'icon-arrow-right-circle',
-    //       badge: {
-    //         variant: 'primary',
-    //         text: 'FUTURE'
-    //       }
-    //     },
-    //     {
-    //       name: 'Bittrex',
-    //       url: '/exchanges/bittrex',
-    //       icon: 'icon-arrow-right-circle',
-    //       badge: {
-    //         variant: 'primary',
-    //         text: 'FUTURE'
-    //       }
-    //     }
-    //   ]
-    // },
     {
       divider: true
     },
@@ -71,6 +28,11 @@ export default {
         element: '',
         attributes: {}
       }
+    },
+    {
+      name: 'Positions',
+      url: '/positions',
+      icon: 'icon-plane'
     },
     {
       name: 'Market',

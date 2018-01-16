@@ -14,6 +14,7 @@ import Alerts from '@/views/Alerts'
 import Trading from '@/views/Trading'
 import Settings from '@/views/Settings'
 import Exchanges from '@/views/Exchanges'
+import Positions from '@/views/Positions'
 
 Vue.use(Router)
 
@@ -63,9 +64,28 @@ export default new Router({
       ]
     },
     {
+      path: '/positions',
+      name: 'Positions',
+      component: Full,
+      children: [
+        {
+          path: '/positions',
+          name: 'Coinbase',
+          component: Positions
+        }
+      ]
+    },
+    {
       path: '/marketcharts',
       name: 'MarketCharts',
-      component: MarketCharts
+      component: Full,
+      children: [
+        {
+          path: '/marketcharts',
+          name: 'Coinbase',
+          component: MarketCharts
+        }
+      ]
     },
     {
       path: '/marketcap',
